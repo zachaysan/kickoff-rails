@@ -1,5 +1,11 @@
 require 'spec_helper'
 
 describe Email do
-  pending "add some examples to (or delete) #{__FILE__}"
+  
+  let(:email) { FactoryGirl.create(:email) }
+
+  it "has a valid factory" do
+    expect(email).to be_valid
+  end
+
 end
