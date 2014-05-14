@@ -13,4 +13,8 @@ describe User do
     expect( user ).to_not be_valid
   end
 
+  it "shows a list of owned emails" do
+    expect( user.owned_emails.first.class ).to be( Email )
+  end
+
 end
