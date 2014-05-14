@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
 
   has_many :owned_emails, foreign_key: :owner_id, class_name: "Email"
 
+  validates_presence_of :username
+
   # If password_confirmation is passed, business as usual.
   # If not, don't run the validations
   def should_confirm_password?

@@ -8,4 +8,9 @@ describe User do
     expect(user).to be_valid
   end
 
+  it "is invalid without a username" do
+    user.username = nil
+    expect( user ).to_not be_valid
+  end
+
 end
