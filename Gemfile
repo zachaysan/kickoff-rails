@@ -11,7 +11,7 @@ group :development, :test do
   # Keeps application running in the background during development
   gem 'spring'
 
-  gem 'factory_girl', '4.4.0'
+  gem 'factory_girl_rails', '4.4.1'
   gem 'rspec-rails', '~> 3.0.0.beta'
 
 end
