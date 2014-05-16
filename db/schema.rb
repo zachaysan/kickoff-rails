@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140514194032) do
+ActiveRecord::Schema.define(version: 20140516031823) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "access_tokens", force: true do |t|
+    t.string   "token",      null: false
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "access_tokens", ["token"], name: "access_tokens_token_index", unique: true, using: :btree
 
   create_table "emails", force: true do |t|
     t.string   "address",    null: false
