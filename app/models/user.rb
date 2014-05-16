@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   has_secure_password
 
   has_many :owned_emails, foreign_key: :owner_id, class_name: "Email"
+  has_one :access_token
 
   validates_presence_of :username
 
