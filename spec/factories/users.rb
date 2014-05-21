@@ -5,7 +5,5 @@ FactoryGirl.define do
     f.password "hunter2"
 
     after(:create) {|user| create(:email, owner: user)}    
-
   end
-  
 end
