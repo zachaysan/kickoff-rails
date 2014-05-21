@@ -8,7 +8,21 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.create(user_params)
+    params = user_params
+    address = params.delete("email")
+    user = User.new(params)
+
+    if address
+      User.transaction do
+        user.skip_email_check = true
+        user.save!
+        email = Email.new({ address: address })
+        email.owner = user
+        email.save!
+      end
+    else
+      user = User.create!(params)
+    end
     respond_with(user, location: user)
   end
 
