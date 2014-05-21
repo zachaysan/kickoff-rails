@@ -39,3 +39,12 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 end
+
+def accept_json
+  { "Accept" => "application/json" }
+end
+
+def request_headers
+  { "Accept" => "application/json",
+    "Content-Type" => "application/json" }
+end
