@@ -30,20 +30,33 @@ describe "Users API" do
   end
 
   describe 'POST /users/' do
+
+    let(:username) { "Lucky" }
+    let(:password) { "hunter2" }
+    let(:email)    { "lucky@example.com" }
+
     it "creates a user with a username and password" do
-      username, password = "lucky", "hunter2"
       user_params = { user: { username: username, password: password } }
         .to_json
 
       post "/users/", user_params, request_headers
-
       expect(response.status).to eq 201
 
       body = JSON.parse(response.body)
       expect(body["username"]).to eq username
     end
 
-    it "creates a user with an email and a password"
+    it "creates a user with an email and a password" do
+      user_params = { user: { email: email, password: password } }
+        .to_json
+
+      post "/users/", user_params, request_headers
+      expect(response.status).to eq 201
+
+      body = JSON.parse(response.body)
+      expect(body["id"]).to_not be_nil
+    end
+    
     it "creates a user with both a username and an email"
   end
   
