@@ -1,6 +1,11 @@
 class User < ActiveRecord::Base
   has_secure_password
 
+  # TODO: I think making the association "owned_emails" was a mistake.
+  #       Instead it should just be "emails", which will include
+  #       both owned and those that the user has access to. 
+  #       A seperate query on /emails/ can be used to see what emails a 
+  #       given user owns.
   has_many :owned_emails, foreign_key: :owner_id, class_name: "Email"
   has_many :access_tokens
 
