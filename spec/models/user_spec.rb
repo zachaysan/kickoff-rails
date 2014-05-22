@@ -5,6 +5,7 @@ describe User do
   let(:user) { FactoryGirl.create(:user) }
 
   it "has a valid factory" do
+    expect( user.class ).to eq User
     expect( user ).to be_valid
   end
 
