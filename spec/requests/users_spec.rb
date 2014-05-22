@@ -8,10 +8,10 @@ describe "Users API" do
 
     it "retrieves a user via user id" do
       get "/users/#{user.id}", {}, accept_json
-      expect(response.status).to eq 200
+      expect( response.status ).to eq 200
       
       body = JSON.parse(response.body)
-      expect(body["username"]).to eq user.username
+      expect( body["user"]["username"] ).to eq user.username
       
     end
 
@@ -21,10 +21,10 @@ describe "Users API" do
 
     it "retrieves a user via username" do
       get "/#{user.username}", {}, accept_json
-      expect(response.status).to eq 200
+      expect( response.status ).to eq 200
 
       body = JSON.parse(response.body)
-      expect(body["username"]).to eq user.username
+      expect( body["user"]["username"] ).to eq user.username
     end
 
   end
@@ -40,10 +40,10 @@ describe "Users API" do
         .to_json
 
       post "/users/", user_params, request_headers
-      expect(response.status).to eq 201
+      expect( response.status ).to eq 201
 
       body = JSON.parse(response.body)
-      expect(body["username"]).to eq username
+      expect( body["user"]["username"] ).to eq username
     end
 
     it "creates a user with an email and a password" do
@@ -51,13 +51,29 @@ describe "Users API" do
         .to_json
 
       post "/users/", user_params, request_headers
+      expect( response.status ).to eq 201
+
+      body = JSON.parse(response.body)
+      expect( body["user"]["id"] ).to_not be_nil
+    end
+    
+    it "creates a user with both a username and an email" do 
+      user_params = { user: { username: username,
+          email: email,
+          password: password } }
+        .to_json
+
+      post "/users/", user_params, request_headers
       expect(response.status).to eq 201
 
       body = JSON.parse(response.body)
-      expect(body["id"]).to_not be_nil
+      expect( body["user"]["username"] ).to eq username
+      owned_email_id = body["owned_emails"].first["id"]
+      owned_email_address = body["owned_emails"].first["address"]
+      expect( body["user"]["owned_email_ids"].first ).to eq owned_email_id
+      expect( owned_email_address ).to eq email
     end
-    
-    it "creates a user with both a username and an email"
+
   end
   
 end
