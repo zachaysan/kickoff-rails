@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     else
       user = User.create!(params)
     end
-    respond_with(user, location: user)
+    respond_with(user)
   end
 
   private
